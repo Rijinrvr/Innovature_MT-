@@ -17,18 +17,18 @@ import { CenteredLoader, SkeletonGridLoader, EmptyState } from "../utils/Loader"
 
 const MediaItem = ({ data, size, loading }) => {
   // Define grid columns based on size
-  const getGridColumns = () => {
-    switch (size) {
-      case "small":
-        return { xs: 6, sm: 4, md: 3, lg: 2 };
-      case "medium":
-        return { xs: 12, sm: 6, md: 4, lg: 3 };
-      case "large":
-        return { xs: 12, sm: 12, md: 6, lg: 4 };
-      default:
-        return { xs: 12, sm: 6, md: 4, lg: 3 };
-    }
-  };
+ const getGridColumns = () => {
+   switch (size) {
+     case "small":
+       return { xs: 6, sm: 4, md: 3, lg: 2 }; // 6 columns on large screens
+     case "medium":
+       return { xs: 12, sm: 6, md: 4, lg: 4 }; // 3 columns on large and medium screens
+     case "large":
+       return { xs: 12, sm: 12, md: 6, lg: 4 }; // 3 columns on large screens
+     default:
+       return { xs: 12, sm: 6, md: 4, lg: 4 };
+   }
+ };
 
   // Define card height based on size
   const getCardHeight = () => {

@@ -13,8 +13,9 @@ import {
   VideoLibrary as VideoIcon,
   Description as DocumentIcon,
 } from "@mui/icons-material";
+import { CenteredLoader, SkeletonGridLoader, EmptyState } from "../utils/Loader";
 
-const MediaItem = ({ data, size }) => {
+const MediaItem = ({ data, size, loading }) => {
   // Define grid columns based on size
   const getGridColumns = () => {
     switch (size) {
@@ -117,17 +118,29 @@ const MediaItem = ({ data, size }) => {
     }
   };
 
-  // If no data, show message
-  if (!data || data.length === 0) {
+  // Show loader while loading
+  if (loading) {
     return (
-      <Box sx={{ padding: 4, textAlign: "center" }}>
-        <Typography variant="h6" color="text.secondary">
-          No media files available
-        </Typography>
+      <Box sx={{ padding: 3 }}>
+        {/* Option 1: Centered Loader */}
+        <CenteredLoader message="Loading media files..." size={60} />
+
+        {/* Option 2: Skeleton Grid (uncomment to use instead) */}
+        {/* <SkeletonGridLoader 
+          count={12} 
+          gridColumns={getGridColumns()} 
+          cardHeight={getCardHeight()} 
+        /> */}
       </Box>
     );
   }
 
+  // Show empty state if no data
+  if (!loading && data.length === 0) {
+    return <EmptyState message="No media files found" />;
+  }
+
+  // Render actual data
   return (
     <Box sx={{ padding: 3 }}>
       <Grid container spacing={2}>
